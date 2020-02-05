@@ -71,6 +71,7 @@ func (c *RLPGatewayClient) Stream(ctx context.Context, req *loggregator_v2.Egres
 		defer close(es)
 		for ctx.Err() == nil {
 			c.connect(ctx, es, req)
+			time.Sleep(1 * time.Second)
 		}
 	}()
 

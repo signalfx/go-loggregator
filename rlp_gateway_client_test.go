@@ -265,7 +265,7 @@ var _ = Describe("RlpGatewayClient", func() {
 
 		Eventually(func() int {
 			return len(spyDoer.Reqs())
-		}).Should(BeNumerically("==", 2))
+		}, 5*time.Second).Should(BeNumerically("==", 2))
 	})
 
 	It("batches envelopes", func() {
@@ -318,7 +318,7 @@ var _ = Describe("RlpGatewayClient", func() {
 
 		c.Stream(ctx, &loggregator_v2.EgressBatchRequest{})
 
-		Eventually(spyDoer.Reqs).Should(HaveLen(3))
+		Eventually(spyDoer.Reqs, 5*time.Second).Should(HaveLen(3))
 	})
 
 	It("reconnects for any errors", func() {
@@ -334,7 +334,7 @@ var _ = Describe("RlpGatewayClient", func() {
 
 		c.Stream(ctx, &loggregator_v2.EgressBatchRequest{})
 
-		Eventually(spyDoer.Reqs).Should(HaveLen(3))
+		Eventually(spyDoer.Reqs, 5*time.Second).Should(HaveLen(3))
 	})
 })
 
